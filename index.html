@@ -73,9 +73,7 @@
 			    const vid = document.getElementById("v").play();
 			    if (vid !== undefined) {
 			        vid.then(function() {
-			            document.getElementById("v").addEventListener("play", function() {
-			                this.currentTime = 3;
-			            })
+					
 			        }).catch(function(error) {
 			            document.getElementById("start").addEventListener("click", function() {
 			                init();
