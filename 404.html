@@ -58,139 +58,146 @@
 		<div id="s">
 			<button id="start">PLAY</button>
 		</div>
-		<video src="videos/no_ones_around_to_help.mp4" id="v" loop></video>
+		<video src="no_ones_around_to_help.mp4" id="v" loop></video>
 		<script type="module">
 			import * as THREE from 'three';
-			import { FontLoader } from 'FontLoader';
+			import {
+			    FontLoader
+			} from 'FontLoader';
 			//https://threejs.org/examples/#webgl_materials_video
 
-      tryInit();
-			
+			tryInit();
 
-			function tryInit(){
-        const vid = document.getElementById("v").play();
-        if(vid !== undefined){
-          vid.then(function(){
-            document.getElementById("v").addEventListener("play", function () {
-              this.currentTime = 3;
-            })
-          }).catch(function(error){
-            document.getElementById("start").addEventListener("click", function(){
-              init();
-            })
-            return;
-          })
-        }
-				const b = document.createElement("canvas");
-				b.id = "bg";
-				document.body.appendChild(b);
-				const scene = new THREE.Scene();
-				const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, .1, 1000);
-								
-				var clock = new THREE.Clock();
-				clock.autoStart = true;
-				const renderer = new THREE.WebGLRenderer({
-				canvas: document.querySelector("#bg"),
-				});
-				renderer.setPixelRatio(window.devicePixelRatio);
-				renderer.setSize( window.innerWidth, window.innerHeight);
-				camera.position.setZ(30);
-				//https://threejs.org/examples/#webgl_geometry_text_shapes
-				const loader = new FontLoader();
-				loader.load( 'Roboto_Regular.json', function ( font ) {
-				const geometry = new THREE.ShapeGeometry(font.generateShapes("404", 100));
-				geometry.computeBoundingBox();
-				const text = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
-					color: "#ffffff"
-				}))
-				text.position.z -= 150;
-				scene.add(text);
-				} );
-				
-				const texture = new THREE.VideoTexture(document.getElementById("v"));
-				const cube = new THREE.Mesh(
-				new THREE.BoxGeometry(10, 10, 10),
-				new THREE.MeshBasicMaterial({map:texture})
-				);
-				scene.add(cube);
-				var delta = clock.getDelta();
-				function animate(){
-					requestAnimationFrame(animate);
-					
-					delta = clock.getDelta();
-					cube.rotation.x += delta;
-					cube.rotation.y += delta;
-					cube.rotation.z += delta;
-					camera.aspect = window.innerWidth / window.innerHeight;
-					camera.updateProjectionMatrix();
-					renderer.setSize(window.innerWidth, window.innerHeight);
-					renderer.render(scene, camera);
-				}
-				animate();
+
+			function tryInit() {
+			    const vid = document.getElementById("v").play();
+			    if (vid !== undefined) {
+			        vid.then(function() {
+			            document.getElementById("v").addEventListener("play", function() {
+			                this.currentTime = 3;
+			            })
+			        }).catch(function(error) {
+			            document.getElementById("start").addEventListener("click", function() {
+			                init();
+			            })
+			            return;
+			        })
+			    }
+			    const b = document.createElement("canvas");
+			    b.id = "bg";
+			    document.body.appendChild(b);
+			    const scene = new THREE.Scene();
+			    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, .1, 1000);
+
+			    var clock = new THREE.Clock();
+			    clock.autoStart = true;
+			    const renderer = new THREE.WebGLRenderer({
+			        canvas: document.querySelector("#bg"),
+			    });
+			    renderer.setPixelRatio(window.devicePixelRatio);
+			    renderer.setSize(window.innerWidth, window.innerHeight);
+			    camera.position.setZ(30);
+			    //https://threejs.org/examples/#webgl_geometry_text_shapes
+			    const loader = new FontLoader();
+			    loader.load('Roboto_Regular.json', function(font) {
+			        const geometry = new THREE.ShapeGeometry(font.generateShapes("404", 100));
+			        geometry.computeBoundingBox();
+			        const text = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
+			            color: "#ffffff"
+			        }))
+			        text.position.z -= 150;
+			        scene.add(text);
+			    });
+
+			    const texture = new THREE.VideoTexture(document.getElementById("v"));
+			    const cube = new THREE.Mesh(
+			        new THREE.BoxGeometry(10, 10, 10),
+			        new THREE.MeshBasicMaterial({
+			            map: texture
+			        })
+			    );
+			    scene.add(cube);
+			    var delta = clock.getDelta();
+
+			    function animate() {
+			        requestAnimationFrame(animate);
+
+			        delta = clock.getDelta();
+			        cube.rotation.x += delta;
+			        cube.rotation.y += delta;
+			        cube.rotation.z += delta;
+			        camera.aspect = window.innerWidth / window.innerHeight;
+			        camera.updateProjectionMatrix();
+			        renderer.setSize(window.innerWidth, window.innerHeight);
+			        renderer.render(scene, camera);
+			    }
+			    animate();
 			}
 
-			function init(){
-				const b = document.createElement("canvas");
-				b.id = "bg";
-				document.body.appendChild(b);
-				const scene = new THREE.Scene();
+			function init() {
+			    const b = document.createElement("canvas");
+			    b.id = "bg";
+			    document.body.appendChild(b);
+			    const scene = new THREE.Scene();
 
-				const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, .1, 1000);
-				
-				var clock = new THREE.Clock();
-				clock.autoStart = true;
+			    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, .1, 1000);
 
-				const renderer = new THREE.WebGLRenderer({
-				canvas: document.querySelector("#bg"),
-				});
+			    var clock = new THREE.Clock();
+			    clock.autoStart = true;
 
-				renderer.setPixelRatio(window.devicePixelRatio);
-				renderer.setSize( window.innerWidth, window.innerHeight);
-				camera.position.setZ(30);
+			    const renderer = new THREE.WebGLRenderer({
+			        canvas: document.querySelector("#bg"),
+			    });
 
-				//https://threejs.org/examples/#webgl_geometry_text_shapes
-				const loader = new FontLoader();
+			    renderer.setPixelRatio(window.devicePixelRatio);
+			    renderer.setSize(window.innerWidth, window.innerHeight);
+			    camera.position.setZ(30);
 
-				loader.load( 'Roboto_Regular.json', function ( font ) {
+			    //https://threejs.org/examples/#webgl_geometry_text_shapes
+			    const loader = new FontLoader();
+
+			    loader.load('Roboto_Regular.json', function(font) {
 
 
-				const geometry = new THREE.ShapeGeometry(font.generateShapes("404", 100));
-				geometry.computeBoundingBox();
-				const text = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
-					color: "#ffffff"
-				}))
-				text.position.z -= 150;
-				scene.add(text);
-				} );
+			        const geometry = new THREE.ShapeGeometry(font.generateShapes("404", 100));
+			        geometry.computeBoundingBox();
+			        const text = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
+			            color: "#ffffff"
+			        }))
+			        text.position.z -= 150;
+			        scene.add(text);
+			    });
 
-				document.getElementById("v").play();
-				document.getElementById("v").addEventListener("play", function () {
-					this.currentTime = 3;
-				})
-				const texture = new THREE.VideoTexture(document.getElementById("v"));
-				const cube = new THREE.Mesh(
-				new THREE.BoxGeometry(10, 10, 10),
-				new THREE.MeshBasicMaterial({map:texture})
-				);
+			    document.getElementById("v").play();
+			    document.getElementById("v").addEventListener("play", function() {
+			        this.currentTime = 3;
+			    })
+			    const texture = new THREE.VideoTexture(document.getElementById("v"));
+			    const cube = new THREE.Mesh(
+			        new THREE.BoxGeometry(10, 10, 10),
+			        new THREE.MeshBasicMaterial({
+			            map: texture
+			        })
+			    );
 
-				scene.add(cube);
+			    scene.add(cube);
 
-				var delta = clock.getDelta();
+			    var delta = clock.getDelta();
 
-				function animate(){
-					requestAnimationFrame(animate);
-					
-					delta = clock.getDelta();
-					cube.rotation.x += delta;
-					cube.rotation.y += delta;
-					cube.rotation.z += delta;
-					camera.aspect =	window.innerWidth / window.innerHeight;
-					camera.updateProjectionMatrix();
-					renderer.setSize(window.innerWidth, window.innerHeight);
-					renderer.render(scene, camera);
-				}
+			    function animate() {
+			        requestAnimationFrame(animate);
 
-				animate();
+			        delta = clock.getDelta();
+			        cube.rotation.x += delta;
+			        cube.rotation.y += delta;
+			        cube.rotation.z += delta;
+			        camera.aspect = window.innerWidth / window.innerHeight;
+			        camera.updateProjectionMatrix();
+			        renderer.setSize(window.innerWidth, window.innerHeight);
+			        renderer.render(scene, camera);
+			    }
+
+			    animate();
 			}
 
 		</script>
